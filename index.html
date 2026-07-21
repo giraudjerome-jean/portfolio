@@ -151,9 +151,10 @@
   .tool-intro{color:var(--ink-2); max-width:64ch; margin:-16px 0 40px; font-size:1.06rem; line-height:1.55;}
   .tool-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns:repeat(3, 1fr);
     border-top:var(--edge); border-left:var(--edge);
   }
+  @media(max-width:720px){ .tool-grid{grid-template-columns:1fr;} }
   .tool{
     border-right:var(--edge); border-bottom:var(--edge);
     padding:22px 20px;
@@ -332,6 +333,11 @@
         <div class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="1.5"/><path d="M7 9.5l3 3-3 3M13 15.5h4"/></svg></div>
         <h4>Terminal</h4>
         <p>Ligne de commande, utilisée notamment pour automatiser des tâches et des scripts.</p>
+      </div>
+      <div class="tool">
+        <div class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M12 8l1.2 2.8L16 12l-2.8 1.2L12 16l-1.2-2.8L8 12l2.8-1.2L12 8Z"/></svg></div>
+        <h4>Figma Weave</h4>
+        <p>Workflows de design assistés par IA : conception et prototypage d'interfaces.</p>
       </div>
     </div>
     </div>
