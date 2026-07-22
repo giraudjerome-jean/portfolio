@@ -154,6 +154,17 @@
     max-width:56ch;
   }
   .hero-meta{margin-top:56px;}
+  .smiley-cursor{
+    position:fixed; top:0; left:0; width:34px; height:34px;
+    background:url(/cursor-smiley.png) center/contain no-repeat;
+    filter:drop-shadow(0 2px 5px rgba(23,21,15,.22));
+    pointer-events:none; z-index:1000;
+    opacity:0; scale:.35;
+    transition:opacity .18s ease, scale .28s cubic-bezier(.34,1.56,.64,1);
+  }
+  .smiley-cursor.show{opacity:1; scale:1;}
+  @media (prefers-reduced-motion: reduce){ .smiley-cursor{scale:1; transition:opacity .12s linear;} }
+  @media (hover: none){ .smiley-cursor{display:none;} }
   @media(max-width:560px){
     .hero{padding:60px 0 44px;}
     .hero h1{font-size:2.1rem; max-width:none; margin:16px 0 22px;}
@@ -546,6 +557,19 @@
   toggle.addEventListener('click', ()=> setOpen(!nav.classList.contains('open')));
   nav.querySelectorAll('.navlinks a').forEach(a=> a.addEventListener('click', ()=> setOpen(false)));
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') setOpen(false); });
+
+  // smooth smiley cursor over the hero title
+  const heroTitle = document.querySelector('.hero h1');
+  if (heroTitle && matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    const sm = document.createElement('div');
+    sm.className = 'smiley-cursor';
+    sm.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(sm);
+    const place = (e)=>{ sm.style.transform = `translate3d(${e.clientX - 17}px, ${e.clientY - 17}px, 0)`; };
+    heroTitle.addEventListener('pointerenter', (e)=>{ place(e); requestAnimationFrame(()=> sm.classList.add('show')); heroTitle.style.cursor = 'none'; });
+    heroTitle.addEventListener('pointermove', place);
+    heroTitle.addEventListener('pointerleave', ()=> sm.classList.remove('show'));
+  }
 </script>
 
 </body>
