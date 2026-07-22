@@ -191,13 +191,7 @@
   .intro-grid p{color:var(--ink-2); margin-bottom:16px; max-width:60ch;}
   .intro-grid p:last-child{margin-bottom:0;}
   .intro-grid strong{color:var(--ink); font-weight:700;}
-  .typewriter-copy{color:#7138c8; font-weight:700;}
-  .typewriter-copy .type-char{opacity:0;}
-  .typewriter-copy.typing .type-char{
-    animation:typeCharIn .01s step-end forwards;
-    animation-delay:calc(var(--char-index) * 45ms);
-  }
-  @keyframes typeCharIn{to{opacity:1;}}
+  .typewriter-copy{color:var(--accent); font-weight:700;}
 
   /* ---------- outils ---------- */
   .tool-intro{color:var(--ink-2); max-width:64ch; margin:-16px 0 40px; font-size:1.06rem; line-height:1.55;}
@@ -570,21 +564,18 @@
     const copy = typewriter.textContent;
     typewriter.setAttribute('aria-label', copy);
     typewriter.textContent = '';
-    const chars = document.createDocumentFragment();
-    [...copy].forEach((char, index)=>{
-      const charEl = document.createElement('span');
-      charEl.className = 'type-char';
-      charEl.setAttribute('aria-hidden', 'true');
-      charEl.style.setProperty('--char-index', index);
-      charEl.textContent = char;
-      chars.appendChild(charEl);
-    });
-    typewriter.appendChild(chars);
 
     const typeIo = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
-          setTimeout(()=>typewriter.classList.add('typing'), 650);
+          setTimeout(()=>{
+            let index = 0;
+            const typeTimer = setInterval(()=>{
+              index += 1;
+              typewriter.textContent = copy.slice(0, index);
+              if(index >= copy.length) clearInterval(typeTimer);
+            }, 35);
+          }, 500);
           typeIo.unobserve(typewriter);
         }
       });
