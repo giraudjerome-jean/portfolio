@@ -153,9 +153,14 @@
   }
   .hero-meta{margin-top:56px;}
   /* bouncing dot of the "i" in "bienvenue" */
-  .ib{position:relative;}
+  .ib{position:relative; display:inline-block;}
+  .ib::before{
+    content:""; position:absolute; z-index:1; left:50%; top:0.02em;
+    width:0.34em; height:0.36em; transform:translateX(-50%);
+    background:var(--paper);
+  }
   .ib .dot{
-    position:absolute; left:50%; top:0.04em; width:0.24em; height:0.24em; margin-left:-0.12em;
+    position:absolute; z-index:2; left:50%; top:0.04em; width:0.24em; height:0.24em; margin-left:-0.12em;
     background:currentColor; border-radius:50%;
     transform-origin:center bottom;
     animation:bounceDot 1.5s ease-in-out infinite;
@@ -163,9 +168,9 @@
   @keyframes bounceDot{
     0%,100%{ transform:translateY(0) scale(1,1); }
     10%{ transform:translateY(0) scale(1.08,.92); }
-    28%{ transform:translateY(-0.45em) scale(.96,1.04); }
+    28%{ transform:translateY(-0.19em) scale(.96,1.04); }
     42%{ transform:translateY(0) scale(1.05,.90); }
-    56%{ transform:translateY(-0.17em) scale(.98,1.02); }
+    56%{ transform:translateY(-0.07em) scale(.98,1.02); }
     70%{ transform:translateY(0) scale(1,.96); }
   }
   @media(max-width:560px){
@@ -300,7 +305,7 @@
   <section class="hero">
     <div class="wrap">
       <p class="eyebrow">Portfolio <em>·</em> Candidature formation IA</p>
-      <h1>Hello et <span class="accent">b<span class="ib">ı<span class="dot" aria-hidden="true"></span></span>envenue</span> sur mon portfolio.</h1>
+      <h1>Hello et <span class="accent">b<span class="ib">i<span class="dot" aria-hidden="true"></span></span>envenue</span> sur mon portfolio.</h1>
       <p class="lede">Graphiste dans les univers corporate (immobilier, finance), l'intelligence artificielle m'apporte une nouvelle façon de créer : en combinant analyse, structure et langage. L'IA, l'extension créative que je cherchais.</p>
 
       <div class="meta hero-meta reveal">
