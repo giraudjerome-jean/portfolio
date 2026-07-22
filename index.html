@@ -272,6 +272,25 @@
   .pipeline .arr{color:var(--accent);}
 
   /* ---------- contact ---------- */
+  .contact-title{
+    display:flex; align-items:center; gap:.22em;
+    color:var(--accent);
+  }
+  .section-head.in .contact-title{animation:contactTitleIn .8s cubic-bezier(.2,.8,.2,1) both;}
+  .contact-smiley{
+    display:inline-block;
+    transform-origin:center 70%;
+    animation:contactSmile 1.8s ease-in-out infinite;
+  }
+  @keyframes contactTitleIn{
+    from{opacity:0; transform:translateY(14px) scale(.97);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  @keyframes contactSmile{
+    0%,100%{transform:translateY(0) rotate(0);}
+    42%{transform:translateY(-.12em) rotate(-7deg);}
+    68%{transform:translateY(0) rotate(5deg);}
+  }
   .contact-wrap{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px;}
   .contact-list{display:flex; flex-direction:column; gap:12px; font-weight:600; font-size:15px;}
   .contact-list a{text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:3px; width:fit-content; transition:border-color .2s, color .2s;}
@@ -529,7 +548,7 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="wrap">
-      <div class="section-head reveal">        <h2>Contact</h2>
+      <div class="section-head reveal">        <h2 class="contact-title"><span>Contactez-moi</span><span class="contact-smiley" aria-hidden="true">:)</span></h2>
       </div>
       <div class="contact-wrap reveal">
         <div class="contact-list">
