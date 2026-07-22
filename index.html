@@ -152,16 +152,16 @@
     max-width:56ch;
   }
   .hero-meta{margin-top:56px;}
-  /* bouncing dot of the "i" in "bienvenue" (à la Buckfast) */
+  /* bouncing dot of the "i" in "bienvenue" */
   .ib{position:relative;}
-  .ib::before{ /* hide the real tittle */
-    content:""; position:absolute; left:50%; top:0.34em;
-    width:0.42em; height:0.36em; transform:translateX(-50%);
-    background:var(--paper);
+  .ib::before{ /* mask only the original dot, never the stem */
+    content:""; position:absolute; left:50%; top:0.04em;
+    width:0.30em; height:0.25em; transform:translateX(-50%);
+    background:var(--paper); border-radius:50%;
   }
   .ib .dot{
-    position:absolute; left:50%; top:0.40em; width:0.27em; height:0.27em; margin-left:-0.135em;
-    background:currentColor; border-radius:0.07em;
+    position:absolute; left:50%; top:0.04em; width:0.24em; height:0.24em; margin-left:-0.12em;
+    background:currentColor; border-radius:50%;
     transform-origin:center bottom;
     animation:bounceDot 1.5s ease-in-out infinite;
   }
