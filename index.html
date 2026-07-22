@@ -191,6 +191,13 @@
   .intro-grid p{color:var(--ink-2); margin-bottom:16px; max-width:60ch;}
   .intro-grid p:last-child{margin-bottom:0;}
   .intro-grid strong{color:var(--ink); font-weight:700;}
+  .typewriter-copy{color:#7138c8; font-weight:700;}
+  .typewriter-copy .type-char{opacity:0;}
+  .typewriter-copy.typing .type-char{
+    animation:typeCharIn .01s step-end forwards;
+    animation-delay:calc(var(--char-index) * 45ms);
+  }
+  @keyframes typeCharIn{to{opacity:1;}}
 
   /* ---------- outils ---------- */
   .tool-intro{color:var(--ink-2); max-width:64ch; margin:-16px 0 40px; font-size:1.06rem; line-height:1.55;}
@@ -327,7 +334,7 @@
           <p>Designer graphique et chef d'entreprise, je me suis récemment passionné pour les possibilités offertes par l'intelligence artificielle. Sans formation de développeur, j'apprends en expérimentant, en partant de besoins concrets et en construisant mes propres outils.</p>
         </div>
         <div>
-          <p>J'ai déjà créé plusieurs projets intégrant l'IA : une carte interactive de mes réalisations, un site d'évaluation éthique des films et une veille automatisée sur les faits divers liés à une boisson écossaise. Ces expériences me donnent aujourd'hui envie d'approfondir mes compétences grâce à une formation en IA.</p>
+          <p>J'ai déjà créé plusieurs projets intégrant l'IA : une carte interactive de mes réalisations, un site d'évaluation éthique des films et une veille automatisée sur les faits divers liés à une boisson écossaise. Ces expériences me donnent aujourd'hui envie d'approfondir mes compétences grâce à une formation en IA. <span class="typewriter-copy" data-typewriter>Mais écrire mes textes moi même, sans IA. Ou juste un peu.</span></p>
         </div>
       </div>
     </div>
@@ -557,6 +564,33 @@
     });
   }, {threshold:0.12});
   els.forEach(el=>io.observe(el));
+
+  const typewriter = document.querySelector('[data-typewriter]');
+  if(typewriter){
+    const copy = typewriter.textContent;
+    typewriter.setAttribute('aria-label', copy);
+    typewriter.textContent = '';
+    const chars = document.createDocumentFragment();
+    [...copy].forEach((char, index)=>{
+      const charEl = document.createElement('span');
+      charEl.className = 'type-char';
+      charEl.setAttribute('aria-hidden', 'true');
+      charEl.style.setProperty('--char-index', index);
+      charEl.textContent = char;
+      chars.appendChild(charEl);
+    });
+    typewriter.appendChild(chars);
+
+    const typeIo = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          setTimeout(()=>typewriter.classList.add('typing'), 650);
+          typeIo.unobserve(typewriter);
+        }
+      });
+    }, {threshold:0.6});
+    typeIo.observe(typewriter);
+  }
 
   // mobile nav toggle
   const nav = document.querySelector('nav.wrap');
